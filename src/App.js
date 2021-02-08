@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import homeRoutes from './routes/homeRoutes';
 import userRoutes from './routes/userRouter';
 import taskRoutes from './routes/taskRoutes';
+import loginRoutes from './routes/loginRouter';
 
 import './database';
 
@@ -27,6 +28,7 @@ class App {
     this.app.use('/', homeRoutes);
     this.app.use('/user/', userRoutes);
     this.app.use('/task/', taskRoutes);
+    this.app.use('/login', loginRoutes);
   }
 }
 

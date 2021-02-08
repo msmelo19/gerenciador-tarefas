@@ -55,4 +55,8 @@ export default class Users extends Sequelize.Model {
   static associate(models) {
     this.hasMany(models.Tasks, { foreignKey: 'user_id' });
   }
+
+  isPasswordValid(pass) {
+    return bcryptjs.compare(pass, this.password_hash);
+  }
 }
