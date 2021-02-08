@@ -5,7 +5,7 @@ export default class Users extends Sequelize.Model {
   static init(sequelize) {
     super.init({
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.DataTypes.STRING,
         defaultValue: '',
         validate: {
           len: {
@@ -15,7 +15,7 @@ export default class Users extends Sequelize.Model {
         },
       },
       email: {
-        type: Sequelize.STRING,
+        type: Sequelize.DataTypes.STRING,
         defaultValue: '',
         unique: {
           msg: 'E-mail já existe',
@@ -27,11 +27,11 @@ export default class Users extends Sequelize.Model {
         },
       },
       password_hash: {
-        type: Sequelize.STRING,
+        type: Sequelize.DataTypes.STRING,
         defaultValue: '',
       },
       password: {
-        type: Sequelize.VIRTUAL,
+        type: Sequelize.DataTypes.VIRTUAL,
         defaultValue: '',
         validate: {
           len: {
@@ -50,5 +50,9 @@ export default class Users extends Sequelize.Model {
     });
 
     return this;
+  }
+
+  static associate(models) {
+    this.hasMany(models.Tasks, { foreignKey: 'user_id' });
   }
 }

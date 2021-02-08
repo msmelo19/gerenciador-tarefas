@@ -1,9 +1,9 @@
-import User from '../models/UsersModel';
+import Users from '../models/UsersModel';
 
 class UserController {
   async index(req, res) {
     try {
-      const users = await User.findAll();
+      const users = await Users.findAll();
 
       return res.json(users);
     } catch (err) {
@@ -15,7 +15,7 @@ class UserController {
 
   async create(req, res) {
     try {
-      const newUser = await User.create(req.body);
+      const newUser = await Users.create(req.body);
       const { id, name, email } = newUser;
       return res.json({
         id,
@@ -38,7 +38,7 @@ class UserController {
         });
       }
 
-      const user = await User.findByPk(id);
+      const user = await Users.findByPk(id);
       if (!user) {
         return res.status(400).json({
           errors: ['User not found'],
@@ -65,7 +65,7 @@ class UserController {
         });
       }
 
-      const user = await User.findByPk(id);
+      const user = await Users.findByPk(id);
 
       if (!user) {
         return res.status(400).json({
