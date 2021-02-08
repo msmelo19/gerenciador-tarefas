@@ -45,9 +45,9 @@ class UserController {
         });
       }
 
-      const newUser = await user.update(req.body);
+      const { name, email } = await user.update(req.body);
 
-      return res.json(newUser);
+      return res.json({ name, email });
     } catch (err) {
       return res.status(400).json({
         errors: err.errors.map((error) => error.message),

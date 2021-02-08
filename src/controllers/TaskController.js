@@ -15,12 +15,12 @@ class TaskController {
 
   async create(req, res) {
     try {
-      const newTask = await Tasks.create(req.body);
-      const { title, start_date } = newTask;
-      return res.json({
-        title,
-        start_date,
-      });
+      const newTask = {
+        ...req.body,
+        user_id: req.userId,
+      };
+      const createdTask = await Tasks.create(newTask);
+      return res.json(createdTask);
     } catch (err) {
       return res.status(400).json({
         errors: err.errors.map((error) => error.message),
