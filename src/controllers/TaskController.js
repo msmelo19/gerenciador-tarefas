@@ -3,7 +3,7 @@ import Tasks from '../models/TasksModel';
 class TaskController {
   async index(req, res) {
     try {
-      const tasks = await Tasks.findAll();
+      const tasks = await Tasks.findAll({ where: { user_id: req.userId } });
 
       return res.json(tasks);
     } catch (err) {
