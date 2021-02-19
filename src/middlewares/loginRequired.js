@@ -14,7 +14,6 @@ export default (req, res, next) => {
   try {
     const data = jwt.verify(token, process.env.TOKEN_SECRET);
     req.userId = data.id;
-    req.userEmail = data.email;
     next();
   } catch (err) {
     return res.status(401).json({
