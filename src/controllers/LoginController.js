@@ -19,7 +19,12 @@ class LoginController {
         expiresIn: process.env.TOKEN_EXPIRATION,
       });
 
-      return res.json({ token });
+      return res.json({
+        token,
+        user: {
+          id,
+        },
+      });
     } catch (err) {
       return res.status(400).json({
         errors: err.errors.map((error) => error.message),
