@@ -1,8 +1,23 @@
+import sequelize from 'sequelize';
 import Tasks from '../models/TasksModel';
 
 class TaskController {
   async index(req, res) {
     try {
+      if (req.query.date) {
+        const queryDate = new Date(Number(req.query.date));
+        const tasks = await Tasks.findAll({
+          where: {
+            [sequelize.Op.and]: [
+              sequelize.where(sequelize.fn('date', sequelize.col('start_date')), '<=', sequelize.fn('date', queryDate)),
+              sequelize.where(sequelize.fn('date', sequelize.col('final_date')), '>=', sequelize.fn('date', queryDate)),
+            ],
+          },
+        });
+
+        return res.json(tasks);
+      }
+
       const tasks = await Tasks.findAll({ where: { user_id: req.userId } });
 
       return res.json(tasks);
