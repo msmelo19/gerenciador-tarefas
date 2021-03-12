@@ -28,6 +28,24 @@ class TaskController {
     }
   }
 
+  async show(req, res) {
+    const { id } = req.params;
+
+    if (!id) return;
+
+    try {
+      const task = await Tasks.findByPk(id);
+      return res.json(task);
+    } catch (err) {
+      if (err.errors) {
+        return res.status(400).json({
+          errors: err.errors.map((error) => error.message),
+        });
+      }
+      return res.status(400).json(err);
+    }
+  }
+
   async create(req, res) {
     try {
       const newTask = {
