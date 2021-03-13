@@ -11,6 +11,7 @@ class TaskController {
             [sequelize.Op.and]: [
               sequelize.where(sequelize.fn('date', sequelize.col('start_date')), '<=', sequelize.fn('date', queryDate)),
               sequelize.where(sequelize.fn('date', sequelize.col('final_date')), '>=', sequelize.fn('date', queryDate)),
+              sequelize.where(sequelize.col('user_id'), req.userId),
             ],
           },
         });
